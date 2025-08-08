@@ -24,9 +24,12 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
   const [isLiked, setIsLiked] = useState(memory.likes.includes(currentUser?.uid || ''));
   const [likeCount, setLikeCount] = useState(memory.likes.length);
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: any) => {
+    // Firestore Timestamp를 Date로 변환
+    const dateObj = date instanceof Date ? date : date.toDate();
+    
     const now = new Date();
-    const diffInMs = now.getTime() - date.getTime();
+    const diffInMs = now.getTime() - dateObj.getTime();
     const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
     const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
@@ -36,7 +39,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
     if (diffInHours < 24) return `${diffInHours}시간 전`;
     if (diffInDays < 7) return `${diffInDays}일 전`;
     
-    return date.toLocaleDateString('ko-KR', {
+    return dateObj.toLocaleDateString('ko-KR', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'

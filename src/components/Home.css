@@ -22,7 +22,14 @@
   margin: 0;
 }
 
-.profile-settings-btn {
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.profile-settings-btn,
+.logout-btn {
   background: none;
   border: none;
   color: #666;
@@ -32,9 +39,14 @@
   transition: all 0.3s ease;
 }
 
-.profile-settings-btn:hover {
+.profile-settings-btn:hover,
+.logout-btn:hover {
   background: #e9ecef;
   color: #333;
+}
+
+.logout-btn:hover {
+  color: #dc3545;
 }
 
 .search-section {
