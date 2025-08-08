@@ -10,7 +10,7 @@ import { Search, Settings, Plus, LogOut } from 'lucide-react';
 import './Home.css';
 
 const Home: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user, signOut } = useAuth();
   const [memories, setMemories] = useState<Memory[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await signOut();
     } catch (error) {
       console.error('로그아웃 오류:', error);
     }
