@@ -140,6 +140,23 @@ const SpotTheDifference: React.FC = () => {
     setGameStarted(true);
   }, [memories, generateDifferences]);
 
+  // 기록 저장
+  const saveRecord = useCallback(async () => {
+    if (!user) return;
+    
+    try {
+      await addDoc(collection(db, 'spotTheDifferenceRecords'), {
+        userName: user.displayName || '익명',
+        time: gameTime,
+        createdAt: serverTimestamp()
+      });
+      
+      fetchRecords(); // 랭킹 새로고침
+    } catch (error) {
+      console.error('기록 저장 오류:', error);
+    }
+  }, [user, gameTime, fetchRecords]);
+
   // 틀린 부분 클릭 처리
   const handleImageClick = useCallback((event: React.MouseEvent<HTMLDivElement>, side: 'left' | 'right') => {
     if (gameCompleted) return;
@@ -177,23 +194,6 @@ const SpotTheDifference: React.FC = () => {
       setTimeout(() => setShowWrongMark(false), 1000);
     }
   }, [differences, foundDifferences, gameCompleted, saveRecord]);
-
-  // 기록 저장
-  const saveRecord = useCallback(async () => {
-    if (!user) return;
-    
-    try {
-      await addDoc(collection(db, 'spotTheDifferenceRecords'), {
-        userName: user.displayName || '익명',
-        time: gameTime,
-        createdAt: serverTimestamp()
-      });
-      
-      fetchRecords(); // 랭킹 새로고침
-    } catch (error) {
-      console.error('기록 저장 오류:', error);
-    }
-  }, [user, gameTime, fetchRecords]);
 
   // 시간 포맷팅
   const formatTime = (seconds: number) => {
