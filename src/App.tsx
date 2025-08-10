@@ -41,12 +41,17 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       
       <div className="main-content">
         <div className="mobile-header">
-          <button 
-            className="sidebar-toggle"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            <Menu size={24} />
-          </button>
+          <div className="mobile-header-content">
+            <button 
+              className="sidebar-toggle"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              title="메뉴 열기"
+            >
+              <Menu size={24} />
+              <span className="menu-text">메뉴</span>
+            </button>
+            <div className="mobile-header-title">JMT</div>
+          </div>
         </div>
         
         <div className="content-area">
