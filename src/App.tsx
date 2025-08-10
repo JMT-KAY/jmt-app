@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import LottoGenerator from './components/LottoGenerator';
 import CoffeeLottery from './components/CoffeeLottery';
+import SpotTheDifference from './components/SpotTheDifference';
 import Sidebar from './components/Sidebar';
 import ProfileEdit from './components/ProfileEdit';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -113,6 +114,16 @@ const App: React.FC = () => {
                 <ProtectedRoute>
                   <MainLayout>
                     <CoffeeLottery />
+                  </MainLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/spot-difference" 
+              element={
+                <ProtectedRoute>
+                  <MainLayout>
+                    <SpotTheDifference />
                   </MainLayout>
                 </ProtectedRoute>
               } 

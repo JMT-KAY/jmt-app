@@ -6,7 +6,8 @@ import {
   Hash,
   X,
   Settings,
-  LogOut
+  LogOut,
+  Search
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './Sidebar.css';
@@ -39,6 +40,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, onProfileEdit }) =>
       icon: <Coffee size={20} />,
       label: '이번주 커피 당첨자는?',
       description: '커피 사다리 게임'
+    },
+    {
+      path: '/spot-difference',
+      icon: <Search size={20} />,
+      label: '틀린그림 찾기',
+      description: '추억 사진으로 게임하기'
     }
   ];
 
