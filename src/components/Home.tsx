@@ -20,17 +20,6 @@ const Home: React.FC = () => {
   const [hasNewMemories, setHasNewMemories] = useState(false);
   const [lastMemoryCount, setLastMemoryCount] = useState(0);
 
-  useEffect(() => {
-    fetchMemories();
-    
-    // 실시간 업데이트를 위한 인터벌 설정
-    const interval = setInterval(() => {
-      fetchMemories();
-    }, 30000); // 30초마다 체크
-    
-    return () => clearInterval(interval);
-  }, [fetchMemories]);
-
   const fetchMemories = useCallback(async () => {
     try {
       const memoriesQuery = query(
@@ -77,6 +66,17 @@ const Home: React.FC = () => {
       setLoading(false);
     }
   }, [lastMemoryCount]);
+
+  useEffect(() => {
+    fetchMemories();
+    
+    // 실시간 업데이트를 위한 인터벌 설정
+    const interval = setInterval(() => {
+      fetchMemories();
+    }, 30000); // 30초마다 체크
+    
+    return () => clearInterval(interval);
+  }, [fetchMemories]);
 
   const filteredMemories = memories.filter((memory) => {
     const matchesSearch = 
