@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { collection, query, orderBy, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { Search, X, Check } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 import './SpotTheDifference.css';
 
 interface GameRecord {
@@ -176,7 +176,7 @@ const SpotTheDifference: React.FC = () => {
       setShowWrongMark(true);
       setTimeout(() => setShowWrongMark(false), 1000);
     }
-  }, [differences, foundDifferences, gameCompleted]);
+  }, [differences, foundDifferences, gameCompleted, saveRecord]);
 
   // 기록 저장
   const saveRecord = useCallback(async () => {
