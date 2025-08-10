@@ -5,7 +5,6 @@ import {
   Plus, 
   Coffee, 
   Hash,
-  Menu,
   X
 } from 'lucide-react';
 import './Sidebar.css';

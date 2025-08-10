@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { Coffee, Users, Gift, Trash2, Play } from 'lucide-react';
+import { Users, Gift, Trash2, Play } from 'lucide-react';
 import './CoffeeLottery.css';
 
 interface Participant {
