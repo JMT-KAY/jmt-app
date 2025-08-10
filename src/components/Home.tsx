@@ -5,18 +5,17 @@ import { db } from '../firebase';
 import { Memory } from '../types';
 import MemoryCard from './MemoryCard';
 import CreateMemory from './CreateMemory';
-import ProfileEdit from './ProfileEdit';
-import { Search, Settings, Plus, LogOut } from 'lucide-react';
+
+import { Search, Plus } from 'lucide-react';
 import './Home.css';
 
 const Home: React.FC = () => {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [memories, setMemories] = useState<Memory[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUser, setSelectedUser] = useState<string>('all');
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(false);
   const [users, setUsers] = useState<string[]>([]);
 
   useEffect(() => {
@@ -79,18 +78,7 @@ const Home: React.FC = () => {
     fetchMemories();
   };
 
-  const handleProfileUpdate = () => {
-    setShowProfileModal(false);
-    fetchMemories();
-  };
 
-  const handleLogout = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('로그아웃 오류:', error);
-    }
-  };
 
   if (loading) {
     return (
@@ -105,22 +93,6 @@ const Home: React.FC = () => {
       {/* 헤더 */}
       <header className="home-header">
         <h1>추억 피드</h1>
-        <div className="header-actions">
-          <button 
-            className="profile-settings-btn"
-            onClick={() => setShowProfileModal(true)}
-            title="프로필 설정"
-          >
-            <Settings size={24} />
-          </button>
-          <button 
-            className="logout-btn"
-            onClick={handleLogout}
-            title="로그아웃"
-          >
-            <LogOut size={24} />
-          </button>
-        </div>
       </header>
 
       {/* 검색 및 필터 */}
@@ -192,12 +164,7 @@ const Home: React.FC = () => {
         />
       )}
 
-      {showProfileModal && (
-        <ProfileEdit
-          onClose={() => setShowProfileModal(false)}
-          onSuccess={handleProfileUpdate}
-        />
-      )}
+
     </div>
   );
 };

@@ -7,6 +7,7 @@ import Home from './components/Home';
 import LottoGenerator from './components/LottoGenerator';
 import CoffeeLottery from './components/CoffeeLottery';
 import Sidebar from './components/Sidebar';
+import ProfileEdit from './components/ProfileEdit';
 import LoadingSpinner from './components/LoadingSpinner';
 import { Menu } from 'lucide-react';
 import './App.css';
@@ -34,10 +35,15 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 // 메인 레이아웃 컴포넌트
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   return (
     <div className="main-layout">
-      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Sidebar 
+        isOpen={sidebarOpen} 
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        onProfileEdit={() => setShowProfileModal(true)}
+      />
       
       <div className="main-content">
         <div className="mobile-header">
@@ -58,6 +64,14 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {children}
         </div>
       </div>
+      
+      {/* 프로필 편집 모달 */}
+      {showProfileModal && (
+        <ProfileEdit
+          onClose={() => setShowProfileModal(false)}
+          onSuccess={() => setShowProfileModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -70,14 +70,15 @@
   margin-top: 2px;
 }
 
-.memory-actions {
+.memory-card .memory-header .memory-actions {
   display: flex !important;
   gap: 16px !important;
   flex-direction: row !important;
   align-items: center !important;
+  justify-content: flex-end !important;
 }
 
-.action-btn {
+.memory-card .memory-header .memory-actions .action-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -307,11 +308,11 @@
     padding: 15px;
   }
   
-  .memory-actions {
+  .memory-card .memory-header .memory-actions {
     gap: 20px !important;
   }
   
-  .action-btn {
+  .memory-card .memory-header .memory-actions .action-btn {
     padding: 10px !important;
     min-width: 36px !important;
     min-height: 36px !important;

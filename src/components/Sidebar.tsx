@@ -4,17 +4,22 @@ import {
   Home, 
   Coffee, 
   Hash,
-  X
+  X,
+  Settings,
+  LogOut
 } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 import './Sidebar.css';
 
 interface SidebarProps {
   isOpen: boolean;
   onToggle: () => void;
+  onProfileEdit: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, onProfileEdit }) => {
   const location = useLocation();
+  const { signOut } = useAuth();
 
   const menuItems = [
     {
@@ -70,6 +75,46 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
               </div>
             </Link>
           ))}
+          
+          {/* 구분선 */}
+          <div className="sidebar-divider"></div>
+          
+          {/* 설정 및 로그아웃 */}
+          <button
+            className="sidebar-item sidebar-action-item"
+            onClick={() => {
+              onProfileEdit();
+              onToggle();
+            }}
+          >
+            <div className="sidebar-item-icon">
+              <Settings size={20} />
+            </div>
+            <div className="sidebar-item-content">
+              <div className="sidebar-item-label">프로필 설정</div>
+              <div className="sidebar-item-description">개인정보 수정</div>
+            </div>
+          </button>
+          
+          <button
+            className="sidebar-item sidebar-action-item"
+            onClick={async () => {
+              try {
+                await signOut();
+                onToggle();
+              } catch (error) {
+                console.error('로그아웃 오류:', error);
+              }
+            }}
+          >
+            <div className="sidebar-item-icon">
+              <LogOut size={20} />
+            </div>
+            <div className="sidebar-item-content">
+              <div className="sidebar-item-label">로그아웃</div>
+              <div className="sidebar-item-description">계정에서 나가기</div>
+            </div>
+          </button>
         </nav>
       </div>
     </>
