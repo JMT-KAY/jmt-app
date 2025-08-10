@@ -72,24 +72,26 @@
 
 .memory-card .memory-header .memory-actions {
   display: flex !important;
-  gap: 16px !important;
+  gap: 20px !important;
   flex-direction: row !important;
   align-items: center !important;
   justify-content: flex-end !important;
+  flex-wrap: nowrap !important;
 }
 
 .memory-card .memory-header .memory-actions .action-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px !important;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  min-width: 32px !important;
-  min-height: 32px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  flex-shrink: 0 !important;
 }
 
 .edit-btn {
@@ -309,13 +311,13 @@
   }
   
   .memory-card .memory-header .memory-actions {
-    gap: 20px !important;
+    gap: 24px !important;
   }
   
   .memory-card .memory-header .memory-actions .action-btn {
-    padding: 10px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
+    padding: 12px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
   }
   
   .memory-actions-bar {
