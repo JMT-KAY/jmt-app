@@ -1,0 +1,334 @@
+.coffee-lottery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.lottery-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.lottery-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lottery-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.create-lottery-section {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.create-lottery-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.create-form {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lottery-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.lottery-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.create-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.create-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.create-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lotteries-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.lotteries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.lottery-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.lottery-card:hover {
+  transform: translateY(-5px);
+}
+
+.lottery-card.completed {
+  opacity: 0.8;
+  background: #f8f9fa;
+}
+
+.lottery-card .lottery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.lottery-card .lottery-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.status-badge {
+  background: #28a745;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.lottery-info {
+  margin-bottom: 20px;
+}
+
+.lottery-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.lottery-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.join-btn, .leave-btn, .draw-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s;
+}
+
+.join-btn {
+  background: #28a745;
+  color: white;
+}
+
+.join-btn:hover {
+  background: #218838;
+}
+
+.leave-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.leave-btn:hover {
+  background: #5a6268;
+}
+
+.draw-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+}
+
+.draw-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.draw-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.winners-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.winners-section h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.winners-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.winner-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  position: relative;
+}
+
+.winner-item.current-user {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.winner-avatar, .winner-avatar-placeholder {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.winner-avatar-placeholder {
+  background: #667eea;
+  color: white;
+}
+
+.winner-badge {
+  background: #ff6b6b;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+  background: rgba(220, 53, 69, 0.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .coffee-lottery-container {
+    padding: 20px 15px;
+  }
+  
+  .lottery-header h1 {
+    font-size: 2rem;
+  }
+  
+  .create-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .lottery-input {
+    min-width: auto;
+  }
+  
+  .lotteries-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .lottery-actions {
+    flex-direction: column;
+  }
+  
+  .join-btn, .leave-btn, .draw-btn {
+    justify-content: center;
+  }
+}

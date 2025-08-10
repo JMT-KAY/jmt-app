@@ -17,6 +17,69 @@ body {
   min-height: 100vh;
 }
 
+/* 메인 레이아웃 */
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.mobile-header {
+  display: none;
+  padding: 15px;
+  background: white;
+  border-bottom: 1px solid #e1e5e9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+  background: #f0f0f0;
+}
+
+.content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* 데스크톱에서는 모바일 헤더 숨김 */
+@media (min-width: 1024px) {
+  .mobile-header {
+    display: none;
+  }
+  
+  .content-area {
+    padding: 40px;
+  }
+}
+
+/* 모바일에서는 모바일 헤더 표시 */
+@media (max-width: 1023px) {
+  .mobile-header {
+    display: block;
+  }
+  
+  .content-area {
+    padding: 20px 15px;
+  }
+}
+
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
   width: 8px;

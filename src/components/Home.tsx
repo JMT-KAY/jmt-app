@@ -104,7 +104,7 @@ const Home: React.FC = () => {
     <div className="home-container">
       {/* 헤더 */}
       <header className="home-header">
-        <h1>JMT</h1>
+        <h1>추억 피드</h1>
         <div className="header-actions">
           <button 
             className="profile-settings-btn"

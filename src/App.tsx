@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
+import LottoGenerator from './components/LottoGenerator';
+import CoffeeLottery from './components/CoffeeLottery';
+import Sidebar from './components/Sidebar';
 import LoadingSpinner from './components/LoadingSpinner';
+import { Menu } from 'lucide-react';
 import './App.css';
 
 // 보호된 라우트 컴포넌트
@@ -27,6 +31,32 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   return <>{children}</>;
 };
 
+// 메인 레이아웃 컴포넌트
+const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  return (
+    <div className="main-layout">
+      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      
+      <div className="main-content">
+        <div className="mobile-header">
+          <button 
+            className="sidebar-toggle"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+        
+        <div className="content-area">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   console.log('App 컴포넌트 렌더링');
   
@@ -41,7 +71,39 @@ const App: React.FC = () => {
               path="/" 
               element={
                 <ProtectedRoute>
-                  <Home />
+                  <MainLayout>
+                    <Home />
+                  </MainLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/create-memory" 
+              element={
+                <ProtectedRoute>
+                  <MainLayout>
+                    <Home />
+                  </MainLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/lotto" 
+              element={
+                <ProtectedRoute>
+                  <MainLayout>
+                    <LottoGenerator />
+                  </MainLayout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/coffee-lottery" 
+              element={
+                <ProtectedRoute>
+                  <MainLayout>
+                    <CoffeeLottery />
+                  </MainLayout>
                 </ProtectedRoute>
               } 
             />
