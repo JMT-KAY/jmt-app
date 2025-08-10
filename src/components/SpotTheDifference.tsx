@@ -23,6 +23,7 @@ const SpotTheDifference: React.FC = () => {
   const { user } = useAuth();
   const [memories, setMemories] = useState<any[]>([]);
   const [currentImage, setCurrentImage] = useState<string>('');
+  const [modifiedImage, setModifiedImage] = useState<string>('');
   const [differences, setDifferences] = useState<Difference[]>([]);
   const [foundDifferences, setFoundDifferences] = useState<number>(0);
   const [gameStarted, setGameStarted] = useState(false);
@@ -108,9 +109,9 @@ const SpotTheDifference: React.FC = () => {
   const generateDifferences = useCallback((imageUrl: string) => {
     const newDifferences: Difference[] = [];
     
-    // 5개의 틀린 부분 생성
+    // 5개의 틀린 부분 생성 (왼쪽과 오른쪽에 균등하게 분배)
     for (let i = 0; i < 5; i++) {
-      const side = Math.random() > 0.5 ? 'left' : 'right' as 'left' | 'right';
+      const side = i % 2 === 0 ? 'left' : 'right' as 'left' | 'right'; // 왼쪽 3개, 오른쪽 2개
       const x = Math.random() * 80 + 10; // 10% ~ 90%
       const y = Math.random() * 80 + 10; // 10% ~ 90%
       
@@ -121,6 +122,70 @@ const SpotTheDifference: React.FC = () => {
         found: false
       });
     }
+    
+    // Canvas를 사용해서 실제 틀린그림 생성
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      if (!ctx) return;
+      
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      // 원본 이미지 그리기
+      ctx.drawImage(img, 0, 0);
+      
+      // 틀린 부분들 그리기
+      newDifferences.forEach(diff => {
+        if (diff.side === 'right') {
+          const pixelX = (diff.x / 100) * img.width;
+          const pixelY = (diff.y / 100) * img.height;
+          
+          // 랜덤한 차이점 생성 (원, 사각형, 선 등)
+          const differenceType = Math.floor(Math.random() * 4);
+          
+          ctx.save();
+          ctx.globalAlpha = 0.8;
+          
+          switch (differenceType) {
+            case 0: // 원
+              ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+              ctx.beginPath();
+              ctx.arc(pixelX, pixelY, 15, 0, 2 * Math.PI);
+              ctx.fill();
+              break;
+            case 1: // 사각형
+              ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+              ctx.fillRect(pixelX - 10, pixelY - 10, 20, 20);
+              break;
+            case 2: // 선
+              ctx.strokeStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+              ctx.lineWidth = 3;
+              ctx.beginPath();
+              ctx.moveTo(pixelX - 15, pixelY - 15);
+              ctx.lineTo(pixelX + 15, pixelY + 15);
+              ctx.stroke();
+              break;
+            case 3: // 별 모양
+              ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 60%)`;
+              ctx.font = '20px Arial';
+              ctx.fillText('★', pixelX - 10, pixelY + 5);
+              break;
+          }
+          
+          ctx.restore();
+        }
+      });
+      
+      // 수정된 이미지를 base64로 변환
+      const modifiedImageUrl = canvas.toDataURL('image/jpeg', 0.9);
+      setModifiedImage(modifiedImageUrl);
+    };
+    
+    img.src = imageUrl;
     
     setDifferences(newDifferences);
     setFoundDifferences(0);
@@ -262,35 +327,35 @@ const SpotTheDifference: React.FC = () => {
               </div>
             </div>
 
-            {/* 오른쪽 이미지 */}
-            <div className="image-wrapper">
-              <div className="image-label">틀린그림</div>
-              <div 
-                className="game-image right-image"
-                onClick={(e) => handleImageClick(e, 'right')}
-              >
-                <img src={currentImage} alt="틀린그림" />
-                {differences
-                  .filter(diff => diff.side === 'right' && diff.found)
-                  .map((diff, index) => (
-                    <div
-                      key={index}
-                      className="found-mark"
-                      style={{ left: `${diff.x}%`, top: `${diff.y}%` }}
-                    >
-                      <Check size={20} />
-                    </div>
-                  ))}
-                {showWrongMark && (
-                  <div
-                    className="wrong-mark"
-                    style={{ left: `${wrongPosition.x}%`, top: `${wrongPosition.y}%` }}
-                  >
-                    <X size={20} />
-                  </div>
-                )}
-              </div>
-            </div>
+                         {/* 오른쪽 이미지 */}
+             <div className="image-wrapper">
+               <div className="image-label">틀린그림</div>
+               <div 
+                 className="game-image right-image"
+                 onClick={(e) => handleImageClick(e, 'right')}
+               >
+                 <img src={modifiedImage || currentImage} alt="틀린그림" />
+                 {differences
+                   .filter(diff => diff.side === 'right' && diff.found)
+                   .map((diff, index) => (
+                     <div
+                       key={index}
+                       className="found-mark"
+                       style={{ left: `${diff.x}%`, top: `${diff.y}%` }}
+                     >
+                       <Check size={20} />
+                     </div>
+                   ))}
+                 {showWrongMark && (
+                   <div
+                     className="wrong-mark"
+                     style={{ left: `${wrongPosition.x}%`, top: `${wrongPosition.y}%` }}
+                   >
+                     <X size={20} />
+                   </div>
+                 )}
+               </div>
+             </div>
           </div>
 
           {gameCompleted && (
