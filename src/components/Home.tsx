@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
@@ -29,9 +29,9 @@ const Home: React.FC = () => {
     }, 30000); // 30초마다 체크
     
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchMemories]);
 
-  const fetchMemories = async () => {
+  const fetchMemories = useCallback(async () => {
     try {
       const memoriesQuery = query(
         collection(db, 'memories'),
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
       console.error('메모리 가져오기 오류:', error);
       setLoading(false);
     }
-  };
+  }, [lastMemoryCount]);
 
   const filteredMemories = memories.filter((memory) => {
     const matchesSearch = 
