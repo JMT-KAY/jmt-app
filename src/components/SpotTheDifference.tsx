@@ -361,7 +361,7 @@ const SpotTheDifference: React.FC = () => {
         )}
       </header>
 
-             {!gameStarted ? (
+                    {!gameStarted ? (
          <div className="game-start">
            <p>기존 추억 사진으로 틀린그림 찾기 게임을 시작해보세요!</p>
            <button className="start-btn" onClick={startGame}>
@@ -380,9 +380,8 @@ const SpotTheDifference: React.FC = () => {
                </button>
              </div>
            )}
-         </>
-       ) : (
-        <div className="game-area">
+           
+                       <div className="game-area">
           <div className="images-container">
             {/* 왼쪽 이미지 */}
             <div className="image-wrapper">
