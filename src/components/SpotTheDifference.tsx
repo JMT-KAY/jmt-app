@@ -476,6 +476,7 @@ const SpotTheDifference: React.FC = () => {
             </div>
           )}
         </div>
+       </>
       )}
 
       {/* 랭킹 */}
