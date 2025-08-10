@@ -17,9 +17,18 @@ const Home: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<string>('all');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [users, setUsers] = useState<string[]>([]);
+  const [hasNewMemories, setHasNewMemories] = useState(false);
+  const [lastMemoryCount, setLastMemoryCount] = useState(0);
 
   useEffect(() => {
     fetchMemories();
+    
+    // 실시간 업데이트를 위한 인터벌 설정
+    const interval = setInterval(() => {
+      fetchMemories();
+    }, 30000); // 30초마다 체크
+    
+    return () => clearInterval(interval);
   }, []);
 
   const fetchMemories = async () => {
@@ -55,6 +64,13 @@ const Home: React.FC = () => {
       
       setMemories(memoriesData);
       setUsers(Array.from(uniqueUsers));
+      
+      // 새로운 메모리 확인
+      if (memoriesData.length > lastMemoryCount && lastMemoryCount > 0) {
+        setHasNewMemories(true);
+      }
+      setLastMemoryCount(memoriesData.length);
+      
       setLoading(false);
     } catch (error) {
       console.error('메모리 가져오기 오류:', error);
@@ -78,6 +94,11 @@ const Home: React.FC = () => {
     fetchMemories();
   };
 
+  const handleRefresh = () => {
+    setHasNewMemories(false);
+    fetchMemories();
+  };
+
 
 
   if (loading) {
@@ -92,7 +113,15 @@ const Home: React.FC = () => {
     <div className="home-container">
       {/* 헤더 */}
       <header className="home-header">
-        <h1>추억 피드</h1>
+        <div className="header-content">
+          <h1>추억 피드</h1>
+          {hasNewMemories && (
+            <button className="new-memories-btn" onClick={handleRefresh}>
+              <span className="new-indicator">N</span>
+              <span>새 글 보기</span>
+            </button>
+          )}
+        </div>
       </header>
 
       {/* 검색 및 필터 */}
@@ -141,7 +170,7 @@ const Home: React.FC = () => {
               memory={memory}
               currentUser={user}
               onUpdate={fetchMemories}
-              postNumber={index + 1}
+              postNumber={filteredMemories.length - index}
             />
           ))
         )}
