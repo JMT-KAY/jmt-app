@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
-  Plus, 
   Coffee, 
   Hash,
   X
@@ -23,12 +22,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
       icon: <Home size={20} />,
       label: '추억 피드',
       description: '팀원들의 소중한 순간들'
-    },
-    {
-      path: '/create-memory',
-      icon: <Plus size={20} />,
-      label: '추억 올리기',
-      description: '새로운 추억을 공유해보세요'
     },
     {
       path: '/lotto',

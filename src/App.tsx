@@ -77,16 +77,7 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               } 
             />
-            <Route 
-              path="/create-memory" 
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <Home />
-                  </MainLayout>
-                </ProtectedRoute>
-              } 
-            />
+
             <Route 
               path="/lotto" 
               element={
